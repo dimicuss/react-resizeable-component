@@ -1,0 +1,26 @@
+{
+  "name": "react-resizeable-component",
+  "version": "0.0.1",
+  "description": "Simple react resizeable component for unity-systems",
+  "main": "srs/index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dimicuss/react-resizeable-component.git"
+  },
+  "keywords": [
+    "react",
+    "resizeable",
+    "box",
+    "component",
+    "hoc"
+  ],
+  "author": "dimicuss",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dimicuss/react-resizeable-component/issues"
+  },
+  "homepage": "https://github.com/dimicuss/react-resizeable-component"
+}
