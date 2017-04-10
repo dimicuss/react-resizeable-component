@@ -1,31 +1,98 @@
+function calculateDelta ({ client, parentSize,  dimensionType, lastClickPosition, factor}) {
+    const delta = (client - lastClickPosition) * factor
+
+    if(dimensionType === 'percents') {
+        return delta / parentSize * 100
+    } else {
+        return delta
+    }
+}
+
+
+
+
 function topBottom(event, factor) {
     const
         state     = this.state,
-        deltaY    = (event.clientY - state.lastClickPosition.y) * factor,
-        newHeight = parseInt(state.sizePool.height) + deltaY
+        maxHeight = this.props.maxHeight,
+        minHeight = this.props.minHeight;
 
-    this.stateChanger({
-        currentSize: {
-            width:  state.currentSize.width,
-            height: newHeight + 'px'
+    let newHeight = state.sizePool.height + calculateDelta({
+            client:            event.clientY,
+            parentSize:        this.props.parentSize.height,
+            dimensionType:     this.props.dimensionType,
+            lastClickPosition: this.state.lastClickPosition.y,
+            factor
+        });
+
+    if(maxHeight < newHeight ) {
+        newHeight = maxHeight
+    }
+
+    if(minHeight > newHeight) {
+        newHeight = minHeight
+    }
+
+    {
+        const callback = () => this.props.onResize(
+            this.state.currentDirection,
+            state.currentSize.width,
+            newHeight);
+
+        if( this.props.resizeType === 'outer') {
+            callback()
         }
-    })
+        else this.stateChanger({
+            currentSize: {
+                width:  state.currentSize.width,
+                height: newHeight
+            }
+        }, callback )
+    }
+
 }
+
 
 
 
 function rightLeft(event, factor) {
     const
         state    = this.state,
-        deltaX   = (event.clientX - state.lastClickPosition.x) * factor,
-        newWidth = parseInt(state.sizePool.width) + deltaX
+        maxWidth = this.props.maxWidth,
+        minWidth = this.props.minHeight;
+    
+    let newWidth =
+        state.sizePool.width + calculateDelta({
+            client:            event.clientX,
+            parentSize:        this.props.parentSize.width,
+            dimensionType:     this.props.dimensionType,
+            lastClickPosition: this.state.lastClickPosition.x,
+            factor
+        });
 
-    this.stateChanger({
-        currentSize: {
-            width: newWidth + 'px',
-            height: state.currentSize.height
-        }
-    })
+    if(maxWidth < newWidth ) {
+        newWidth = maxWidth
+    }
+
+    if(minWidth > newWidth) {
+        newWidth = minWidth
+    }
+
+    {
+        const callback = () => this.props.onResize(
+            this.state.currentDirection,
+            newWidth,
+            state.currentSize.height)
+
+        if( this.props.resizeType === 'outer') {
+            callback()
+        } else this.stateChanger({
+            currentSize: {
+                width: newWidth,
+                height: state.currentSize.height
+            }
+        }, callback)
+    }
 }
 
 

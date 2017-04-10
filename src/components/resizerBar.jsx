@@ -6,6 +6,7 @@ class ResizerBar extends React.Component {
     constructor(props) {
         super(props)
         this.onMouseDown = mouseDownHandler.bind(this)
+        this.onResizeStart = this.props.onResizeStart
     }
 
 
@@ -28,16 +29,24 @@ class ResizerBar extends React.Component {
 
 
 
-(() => {
+{
     const types = React.PropTypes
     const stringNumber = types.oneOfType([ types.string , types.number ]);
+    const requiredNumber = types.number.isRequired;
+
 
     ResizerBar.propTypes = {
-        style:        types.objectOf(stringNumber),
-        direction:    types.oneOf(resizerDirections).isRequired,
-        stateChanger: types.func.isRequired
+        style:         types.objectOf(stringNumber),
+        direction:     types.oneOf(resizerDirections).isRequired,
+        resizeType:    types.oneOf([ 'inner', 'outer' ]).isRequired,
+        currentSize:   types.shape({
+            width:  requiredNumber,
+            height: requiredNumber,
+        }).isRequired,
+        stateChanger:  types.func.isRequired,
+        onResizeStart: types.func,
     }
-})();
+}
 
 
 
