@@ -2,7 +2,7 @@
   "name": "react-resizeable-component",
   "version": "0.0.1",
   "description": "Simple react resizeable component for unity-systems",
-  "main": "src/index.js",
+  "main": "src/index.jsx",
   "scripts": {
     "test": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --config test/baseTest/webpack.config.js"
   },
