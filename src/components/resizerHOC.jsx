@@ -13,14 +13,8 @@ class ResizerHOC extends React.Component {
         this.state = this.getInitialState(props);
         this.getState = this.getState.bind(this);
         this.stateChanger = this.stateChanger.bind(this);
-        this.mouseUpHandler = mouseUpHandler(
-            this.stateChanger,
-            this.getState
-        );
-        this.mouseMoveHandler = mouseMoveHandler(
-            this.stateChanger,
-            this.getState
-        );
+        this.mouseUpHandler = mouseUpHandler.bind(this);
+        this.mouseMoveHandler = mouseMoveHandler.bind(this);
     }
 
 
@@ -33,11 +27,6 @@ class ResizerHOC extends React.Component {
     componentWillUnmount() {
         window.removeEventListener('mouseup', this.mouseUpHandler);
         window.removeEventListener('mousemove', this.mouseMoveHandler);
-    }
-
-
-    componentDidUpdate() {
-        console.log(this.state)
     }
 
 

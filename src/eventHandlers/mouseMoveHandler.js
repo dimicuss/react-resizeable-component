@@ -1,23 +1,26 @@
-function topBottom(stateChanger, state,  event, factor) {
+function topBottom(event, factor) {
     const
+        state     = this.state,
         deltaY    = (event.clientY - state.lastClickPosition.y) * factor,
         newHeight = parseInt(state.sizePool.height) + deltaY
 
-    stateChanger({
+    this.stateChanger({
         currentSize: {
-            width: state.currentSize.width,
+            width:  state.currentSize.width,
             height: newHeight + 'px'
         }
     })
 }
 
 
-function rightLeft(stateChanger, state,  event, factor) {
+
+function rightLeft(event, factor) {
     const
+        state    = this.state,
         deltaX   = (event.clientX - state.lastClickPosition.x) * factor,
         newWidth = parseInt(state.sizePool.width) + deltaX
 
-    stateChanger({
+    this.stateChanger({
         currentSize: {
             width: newWidth + 'px',
             height: state.currentSize.height
@@ -28,24 +31,26 @@ function rightLeft(stateChanger, state,  event, factor) {
 
 
 
+export default function (event) {
+    let factor;
 
+    switch(this.state.currentDirection) {
+        case 'top':
+            factor = -1;
+            return topBottom.bind(this)( event, factor );
 
-export default (stateChanger, getState) => {
-    return (event) => {
+        case 'bottom':
+            factor = 1;
+            return topBottom.bind(this)( event, factor );
 
-        const state = getState()
+        case 'left':
+            factor = -1;
+            return rightLeft.bind(this)( event, factor );
 
-        switch(state.currentDirection) {
-            case 'top': return topBottom( stateChanger, state, event, -1 );
+        case 'right':
+            factor = 1;
+            return rightLeft.bind(this)( event, factor );
 
-            case 'bottom': return topBottom( stateChanger, state, event, 1 );
-
-            case 'left': return rightLeft( stateChanger, state, event, -1 );
-
-            case 'right': return rightLeft( stateChanger, state, event, 1 );
-
-            default: return
-        }
-
+        default: return
     }
 }

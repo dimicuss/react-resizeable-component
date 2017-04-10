@@ -1,10 +1,11 @@
 import { barStyles }         from '../deafultStyles.js'
 import { resizerDirections } from '../types.js'
+import mouseDownHandler      from '../eventHandlers/mouseDownHandler.js'
 
 class ResizerBar extends React.Component {
     constructor(props) {
         super(props)
-        this.onMouseDown = this.onMouseDown.bind(this)
+        this.onMouseDown = mouseDownHandler.bind(this)
     }
 
 
@@ -12,19 +13,7 @@ class ResizerBar extends React.Component {
         const direction = this.props.direction;
         const style     = this.props.style
 
-        return Object.assign(barStyles[direction], style)
-    }
-
-
-    onMouseDown(event) {
-        event.preventDefault()
-        this.props.stateChanger({
-            currentDirection: this.props.direction,
-            lastClickPosition: {
-                x: event.clientX,
-                y: event.clientY
-            }
-        })
+        return Object.assign({}, barStyles[direction], style)
     }
 
 
@@ -44,8 +33,8 @@ class ResizerBar extends React.Component {
     const stringNumber = types.oneOfType([ types.string , types.number ]);
 
     ResizerBar.propTypes = {
-        style: types.objectOf(stringNumber),
-        direction: types.oneOf(resizerDirections).isRequired,
+        style:        types.objectOf(stringNumber),
+        direction:    types.oneOf(resizerDirections).isRequired,
         stateChanger: types.func.isRequired
     }
 })();
