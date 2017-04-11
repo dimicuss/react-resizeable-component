@@ -19,7 +19,7 @@ function topBottom(event, factor) {
 
     let newHeight = state.sizePool.height + calculateDelta({
             client:            event.clientY,
-            parentSize:        this.props.parentSize.height,
+            parentSize:        this.state.parentSize.height,
             dimensionType:     this.props.dimensionType,
             lastClickPosition: this.state.lastClickPosition.y,
             factor
@@ -64,7 +64,7 @@ function rightLeft(event, factor) {
     let newWidth =
         state.sizePool.width + calculateDelta({
             client:            event.clientX,
-            parentSize:        this.props.parentSize.width,
+            parentSize:        this.state.parentSize.width,
             dimensionType:     this.props.dimensionType,
             lastClickPosition: this.state.lastClickPosition.x,
             factor

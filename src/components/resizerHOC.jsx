@@ -13,12 +13,6 @@ class ResizerHOC extends React.Component {
         this.stateChanger     = this.stateChanger.bind(this);
         this.mouseUpHandler   = mouseUpHandler.bind(this);
         this.mouseMoveHandler = mouseMoveHandler.bind(this);
-
-        {
-            const condition = this.props.dimensionType === 'percents' && !this.props.parentSize;
-            const error     = new Error('If you wanna calculate size in percents you must specify "parentSize" parameter (see in documentation).')
-            if(condition) throw error
-        }
     }
 
 
@@ -94,6 +88,7 @@ class ResizerHOC extends React.Component {
                     onResizeStart={this.props.onResizeStart}
                     currentSize={this.state.currentSize}
                     resizeType={this.props.resizeType}
+                    hoc={this}
                 />
 
             ])
@@ -112,7 +107,11 @@ class ResizerHOC extends React.Component {
 
 
     render() {
-        return <div style={this.getStyle()}>
+        return <div
+            className={this.props.className}
+            style={this.getStyle()}
+            ref={ DOMhoc => this.ref = DOMhoc }
+        >
             {this.props.children}
             {this.renderResizers()}
         </div>
@@ -127,13 +126,10 @@ class ResizerHOC extends React.Component {
     const requiredNumber = types.number.isRequired;
 
     ResizerHOC.propTypes = {
+        className: types.string,
+
         resizeType:    types.oneOf([ 'inner', 'outer' ]).isRequired,
         dimensionType: types.oneOf([ 'percents', 'pixels' ]).isRequired,
-
-        parentSize: types.shape({
-            width:  requiredNumber,
-            height: requiredNumber
-        }),
 
         width:  requiredNumber,
         height: requiredNumber,

@@ -45,6 +45,7 @@ class ResizerBar extends React.Component {
         }).isRequired,
         stateChanger:  types.func.isRequired,
         onResizeStart: types.func,
+        hoc: types.object.isRequired
     }
 }
 

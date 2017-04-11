@@ -22,6 +22,8 @@ class Wrapper extends React.Component {
             height: size.height
         }}>
             <ResizerHOC
+                className="someClass"
+
                 dimensionType='percents'
                 resizeType='outer'
                 parentSize={{
