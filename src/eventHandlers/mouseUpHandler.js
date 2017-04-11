@@ -3,8 +3,6 @@ export default function () {
         newSizePool = Object.assign({}, this.state.currentSize),
         direction   = this.state.currentDirection;
 
-    if(!direction) return;
-
     this.stateChanger({
         currentDirection: null,
         sizePool: newSizePool
