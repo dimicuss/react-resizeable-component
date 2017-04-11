@@ -34,7 +34,7 @@ function topBottom(event, factor) {
     }
 
     {
-        const callback = () => this.props.onResize(
+        const callback = () => this.props.onResize && this.props.onResize(
             this.state.currentDirection,
             state.currentSize.width,
             newHeight);
@@ -79,7 +79,7 @@ function rightLeft(event, factor) {
     }
 
     {
-        const callback = () => this.props.onResize(
+        const callback = () => this.props.onResize && this.props.onResize(
             this.state.currentDirection,
             newWidth,
             state.currentSize.height)

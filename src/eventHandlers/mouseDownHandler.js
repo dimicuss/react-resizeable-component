@@ -16,7 +16,7 @@ export default function(event)  {
             y: event.clientY
         }
     }, () => {
-        this.onResizeStart(
+        this.onResizeStart && this.onResizeStart(
             this.props.direction,
             this.props.currentSize.width,
             this.props.currentSize.height
