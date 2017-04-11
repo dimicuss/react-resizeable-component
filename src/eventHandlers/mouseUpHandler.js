@@ -3,7 +3,7 @@ export default function () {
         newSizePool = Object.assign({}, this.state.currentSize),
         direction   = this.state.currentDirection;
 
-    console.log(direction)
+    if(!direction) return;
 
     this.stateChanger({
         currentDirection: null,
